@@ -1,0 +1,10 @@
+[
+  { "title": "Ultimate Personal Planner", "category":"Personal", "price":"$12", "tags":["Habits","Routines"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Startup CRM Lite", "category":"Business", "price":"$19", "tags":["Leads","Deals"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Bug Tracker (IT)", "category":"IT", "price":"$15", "tags":["Sprints","Issues"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Project OS", "category":"Business", "price":"$29", "tags":["Gantt","Docs"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Content Calendar", "category":"Business", "price":"$14", "tags":["Social","Blog"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Student Dashboard", "category":"Student", "price":"$9", "tags":["Study","Grades"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "Habit + Mood Journal", "category":"Personal", "price":"$11", "tags":["Wellness","Tracker"], "img":"/placeholder.svg", "link":"#" },
+  { "title": "OKR Planner", "category":"Business", "price":"$16", "tags":["Goals","KPIs"], "img":"/placeholder.svg", "link":"#" }
+]

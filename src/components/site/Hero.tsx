@@ -1,77 +1,50 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronLeft, ChevronRight, Lock } from "lucide-react";
 import React from "react";
-import heroImage from "@/assets/hero-notion.png";
+import notionCube from "@/assets/image.png";
+
+function NotionBadge() {
+  return (
+    <img
+      src={notionCube}
+      alt="Notion logo"
+      className="inline-block align-[-0.25em] h-[1.1em] w-auto mx-2 select-none"
+      draggable={false}
+      loading="lazy"
+    />
+  );
+}
 
 export default function Hero() {
   return (
     <section className="relative overflow-visible pt-8 pb-12 md:pt-12 md:pb-16 snap-start">
       <div className="container animate-enter">
-        <div className="rounded-[1.75rem] md:rounded-[2.25rem] border border-border bg-card shadow-xl overflow-hidden relative">
-          <div aria-hidden className="absolute left-1/2 -translate-x-1/2 top-0 h-5 w-36 rounded-b-[14px] bg-foreground/5 blur-sm" />
-          <div className="bg-background/70 backdrop-blur-sm border-b border-border px-3 md:px-4 py-2.5 flex items-center justify-between relative">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden />
-              <div className="hidden md:flex items-center gap-3 ml-3 text-xs text-foreground/70">
-                <img src="/images/planaur.jpg" alt="Planaur logo" className="h-5 w-auto rounded-[6px] ring-1 ring-border" />
-                <ChevronLeft className="h-4 w-4" />
-                <ChevronRight className="h-4 w-4" />
-              </div>
+        <div className="rounded-[2rem] border border-border bg-white shadow-xl overflow-hidden">
+          <div className="grid items-stretch lg:grid-cols-[1.3fr,0.7fr]">
+            {/* Left copy */}
+            <div className="px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-16">
+              <h1 className="font-league font-black text-[36px] leading-[1.02] md:text-[64px] md:leading-[1.04] lg:text-[90px] lg:leading-[1.04] text-black tracking-tight">
+                <span className="block whitespace-nowrap">Notion <NotionBadge /> Templates</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4">that Organize Your</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4"><span className="text-[#7C7C7C] tracking-in-expand">chaos</span> into</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-4">Actionable</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-4">Productivity</span>
+              </h1>
             </div>
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="hidden md:flex items-center gap-2 relative rounded-full px-3 py-1.5 text-xs text-foreground/80 backdrop-blur-md border border-black/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.65),0_1px_2px_rgba(2,6,23,0.06),0_8px_24px_rgba(2,6,23,0.08)] bg-gradient-to-b from-white/85 to-white/70 dark:from-foreground/20 dark:to-foreground/10">
-                <Lock className="h-3.5 w-3.5 opacity-80" />
-                <span className="tracking-wide">planaur.app</span>
-                <span aria-hidden className="pointer-events-none absolute -inset-px rounded-full ring-1 ring-black/5" />
-              </div>
-            </div>
-            <div className="w-14" />
-          </div>
-
-          {/* Hero content */}
-          <div className="relative overflow-hidden">
-            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
-
-            <div className="grid items-center gap-10 md:gap-16 lg:grid-cols-2 px-0 md:px-10 pt-0 md:pt-6 pb-8 md:pb-12">
-              <div className="col-span-2">
-                <div className="relative h-72 md:h-96 w-full border-b border-border overflow-hidden">
-                  <div className="absolute inset-0" aria-hidden style={{ background: "var(--gradient-hero)" }} />
+            {/* Right: Mini Mac screen mock with collage inside */}
+            <div className="relative hidden lg:flex items-center justify-center pr-10">
+              <div className="relative w-[520px] max-w-[90%] aspect-[16/10] rounded-[22px] border border-border bg-[#f5f5f4] shadow-xl overflow-hidden">
+                <div className="absolute left-0 right-0 top-0 h-8 bg-[#e7e5e4] border-b border-border flex items-center gap-2 px-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" aria-hidden />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" aria-hidden />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" aria-hidden />
                 </div>
+                <img
+                  src="/images/notioncollage.png"
+                  alt="Collage of Notion templates"
+                  className="absolute inset-0 h-full w-full object-cover pt-8"
+                  loading="lazy"
+                />
               </div>
-              <div className="px-6 md:px-0">
-                <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground mb-6">
-                  +45% Boost your productivity
-                </span>
-                 <h1 className="type-h1 max-w-[12ch]">
-                   Notion Templates That Organize Your Chaos into Actionable Productivity
-                 </h1>
-                 <p className="mt-4 text-muted max-w-xl type-body">
-                  Maximize efficiency with our intuitive Notion templates.
-                </p>
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <Button asChild>
-                    <a href="/templates" className="group">
-                      Explore Templates
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <a href="/templates">View Pricing</a>
-                  </Button>
-                </div>
-              </div>
-              <div className="relative px-6 md:px-0">
-                <div className="rounded-xl border border-border bg-card/80 p-2 shadow-sm">
-                  <img
-                    src={heroImage}
-                    alt="Clean Notion dashboard mockup"
-                    className="rounded-lg w-full h-auto"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
+              <span aria-hidden className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-3 w-40 rounded-full bg-black/10 blur-md" />
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ export default function TemplatesStack() {
   }, [active, sort, templates]);
 
   return (
-    <section id="templates" className="py-24 md:py-28">
+    <section id="templates" className="py-24 md:py-28 bg-[#D9D9D9]">
       <div className="container">
         <header className="flex flex-col items-center text-center mb-8">
           <h2 className="font-heading text-3xl md:text-5xl tracking-tight">Explore Beautiful Templates</h2>
@@ -69,7 +69,7 @@ export default function TemplatesStack() {
           </div>
         </div>
 
-        {/* Stacked, scroll-driven cards */}
+        {/* Stacked, scroll-driven cards with subtle 3D depth */}
         <ol
           role="list"
           className="relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
@@ -82,13 +82,26 @@ export default function TemplatesStack() {
                 "animate-fade-in"
               )}
               aria-label={`Template ${i + 1} of ${filtered.length}: ${t.title}`}
-              style={{ zIndex: filtered.length - i }}
+              style={{ zIndex: filtered.length - i, transform: `translateZ(${i * -6}px)`, perspective: 1200 }}
             >
-              <article className="group mx-auto max-w-5xl rounded-2xl border border-border bg-card text-card-foreground shadow-xl overflow-hidden">
-                <div className="flex items-center gap-2 px-4 py-3 bg-muted/60 border-b border-border">
-                  <span className="size-2.5 rounded-full bg-muted-foreground/40" />
-                  <span className="size-2.5 rounded-full bg-muted-foreground/40" />
-                  <span className="size-2.5 rounded-full bg-muted-foreground/40" />
+              <article
+                className={
+                  "group mx-auto max-w-5xl rounded-xl border border-border bg-white text-card-foreground overflow-hidden"
+                }
+                style={{
+                  boxShadow:
+                    i === filtered.length - 1
+                      ? "0 10px 30px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.6) inset"
+                      : "0 18px 40px rgba(0,0,0,0.25)",
+                  transform: `translateY(${i * 4}px) scale(${1 - i * 0.01}) rotateX(${i * 0.15}deg)`,
+                  transformStyle: "preserve-3d",
+                  willChange: "transform",
+                }}
+              >
+                <div className="flex items-center gap-2 px-4 py-3 bg-[#EDEDED] border-b border-border">
+                  <span className="size-2.5 rounded-full bg-neutral-400/60" />
+                  <span className="size-2.5 rounded-full bg-neutral-400/60" />
+                  <span className="size-2.5 rounded-full bg-neutral-400/60" />
                   <div className="ml-3 flex-1" />
                  <span className="text-xs text-muted-foreground">{t.category}</span>
                 </div>
@@ -102,7 +115,7 @@ export default function TemplatesStack() {
                   />
                 </div>
 
-                <div className="p-5 md:p-6">
+                 <div className="p-5 md:p-6">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <h3 className="font-medium leading-tight">{t.title}</h3>
@@ -126,7 +139,7 @@ export default function TemplatesStack() {
         </ol>
 
         {/* Spacer so the last sticky card can scroll past */}
-        <div className="h-24 md:h-32" aria-hidden="true" />
+        <div className="h-24 md:h-40" aria-hidden="true" />
       </div>
     </section>
   );

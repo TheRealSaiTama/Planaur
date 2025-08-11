@@ -14,20 +14,11 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1200px'
+				'2xl': '1400px'
 			}
 		},
 		extend: {
 			colors: {
-				/* Figma token aliases */
-				bg: 'var(--color-bg)',
-				text: 'var(--color-text)',
-				muted: 'var(--color-muted)',
-				surface: 'var(--color-surface)',
-				"dark-1": 'var(--color-dark-1)',
-				tint100: 'var(--tint-100)',
-				tint200: 'var(--tint-200)',
-				tint300: 'var(--tint-300)',
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -72,10 +63,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
-				fontFamily: {
-					inter: ['var(--font-body)', 'ui-sans-serif', 'system-ui'],
-					heading: ['var(--font-heading)', 'ui-sans-serif', 'system-ui']
-				},
+            fontFamily: {
+                inter: ['Inter', 'ui-sans-serif', 'system-ui'],
+                heading: ['DM Sans', 'Inter', 'ui-sans-serif', 'system-ui'],
+                league: ['"League Spartan"', 'Inter', 'ui-sans-serif', 'system-ui']
+            },
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

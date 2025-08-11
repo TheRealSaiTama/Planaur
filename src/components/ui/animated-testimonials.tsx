@@ -60,12 +60,13 @@ export const AnimatedTestimonials = ({
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <img
+                   <img
                     src={testimonial.src}
                     alt={testimonial.name}
                     width={500}
                     height={500}
-                    draggable={false}
+                     loading="lazy"
+                     draggable={false}
                     className="h-full w-full rounded-3xl object-cover object-center"
                   />
                 </motion.div>

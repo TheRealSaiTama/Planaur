@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useMemo, Suspense } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { templates } from "@/data/templates"
 import type { Template } from "@/data/types"
@@ -53,7 +53,9 @@ export default function TemplateDetail() {
       <div className="container grid gap-10 lg:grid-cols-[1.2fr,0.8fr]">
         <div>
           <div className="rounded-xl border overflow-hidden" onMouseEnter={() => track("view_template", { slug: t.slug })}>
-            <img src={t.coverImg} alt={`${t.title} cover`} className="w-full object-cover" />
+            <Suspense fallback={<div className="aspect-video w-full bg-muted" />}>
+              <img src={t.coverImg} alt={`${t.title} cover`} className="w-full object-cover" loading="lazy" />
+            </Suspense>
           </div>
           {t.gallery.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">

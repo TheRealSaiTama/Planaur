@@ -1,0 +1,48 @@
+@import "./tokens.css";
+
+:root {
+  color-scheme: light dark;
+}
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--body);
+  line-height: var(--body-lh);
+  text-rendering: optimizeLegibility;
+}
+
+.text-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glass utility */
+.glass {
+  background: color-mix(in oklab, var(--color-surface) 80%, transparent);
+  border: 1px solid color-mix(in oklab, var(--color-text) 8%, transparent);
+  backdrop-filter: saturate(1.2) blur(10px);
+  -webkit-backdrop-filter: saturate(1.2) blur(10px);
+  box-shadow: 0 4px 24px color-mix(in oklab, var(--color-dark-1) 10%, transparent);
+}
+
+/* Type utilities aligned to tokens */
+.type-h1 { font-family: var(--font-heading); font-size: var(--h1); line-height: var(--h1-lh); letter-spacing: -0.01em; }
+.type-h2 { font-family: var(--font-heading); font-size: var(--h2); line-height: var(--h2-lh); }
+.type-body { font-family: var(--font-body); font-size: var(--body); line-height: var(--body-lh); }
+
+/* Minimal reveal motion with reduced-motion guard */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal { animation: fade-in-up 240ms ease-out both; }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--color-text) 20%, transparent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}

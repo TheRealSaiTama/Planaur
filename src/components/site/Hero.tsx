@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronLeft, ChevronRight, Lock } from "lucide-react";
-import Spline from "@splinetool/react-spline";
+import React from "react";
 import heroImage from "@/assets/hero-notion.png";
 
 export default function Hero() {
@@ -36,18 +36,18 @@ export default function Hero() {
 
             <div className="grid items-center gap-10 md:gap-16 lg:grid-cols-2 px-0 md:px-10 pt-0 md:pt-6 pb-8 md:pb-12">
               <div className="col-span-2">
-                <div className="relative h-[60vh] md:h-[70vh] w-full border-b border-border overflow-hidden">
-                  <Spline scene="https://prod.spline.design/CXkWCa4xq7xVnTuc/scene.splinecode" />
+                <div className="relative h-72 md:h-96 w-full border-b border-border overflow-hidden">
+                  <div className="absolute inset-0" aria-hidden style={{ background: "var(--gradient-hero)" }} />
                 </div>
               </div>
               <div className="px-6 md:px-0">
                 <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground mb-6">
                   +45% Boost your productivity
                 </span>
-                <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight">
-                  Notion Templates That Organize Your Chaos into Actionable Productivity
-                </h1>
-                <p className="mt-5 text-lg text-muted-foreground max-w-xl">
+                 <h1 className="type-h1 max-w-[12ch]">
+                   Notion Templates That Organize Your Chaos into Actionable Productivity
+                 </h1>
+                 <p className="mt-4 text-muted max-w-xl type-body">
                   Maximize efficiency with our intuitive Notion templates.
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">

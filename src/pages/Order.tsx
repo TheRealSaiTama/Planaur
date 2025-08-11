@@ -27,9 +27,9 @@ export default function OrderPage() {
   return (
     <section className="py-20">
       <div className="container max-w-2xl">
-        <h1 className="text-3xl font-heading">Your order</h1>
+         <h1 className="text-3xl font-heading">Your order</h1>
         {!order ? (
-          <p className="mt-4 text-muted-foreground">Loading…</p>
+           <p className="mt-4 text-muted-foreground" role="status" aria-live="polite">Loading…</p>
         ) : (
           <div className="mt-6 space-y-4">
             {order.items.map(item => (

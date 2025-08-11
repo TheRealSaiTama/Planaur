@@ -39,6 +39,9 @@ Templates use a typed data model and can be served from API:
    - `ADMIN_PASSWORD` (for Admin API)
 5. Click Deploy.
 
+### SPA routing note
+On Vercel, routing is handled for `/api/*` functions automatically. For client-side routes (e.g. `/t/:slug`), ensure the default 404 fallback to `index.html` is enabled. If you use another static host, configure a SPA fallback to `index.html`.
+
 ## Links & Anchors
 
 Routes:

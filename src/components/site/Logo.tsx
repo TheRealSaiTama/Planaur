@@ -2,18 +2,11 @@ import React from "react";
 
 type LogoProps = { height?: number; className?: string; scale?: number };
 
-export default function Logo({ height = 40, className, scale = 5 }: LogoProps) {
-  const scaledHeight = Math.round(height * scale);
-  const offset = Math.round((scaledHeight - height) / 2);
+export default function Logo({ height = 40, className }: LogoProps) {
   return (
-    <div className={className} style={{ height, lineHeight: 1, overflow: "hidden" }}>
-      <img
-        src="/images/transparent.png"
-        alt="Planaur"
-        style={{ height: scaledHeight, width: "auto", display: "block", position: "relative", top: -offset }}
-        className="select-none"
-        draggable={false}
-      />
+    <div className={["flex items-center gap-2", className].filter(Boolean).join(" ")}> 
+      <img src="/images/planaur.jpg" alt="Planaur" style={{ height }} className="rounded-[6px] ring-1 ring-border select-none" draggable={false} />
+      <span className="font-heading" style={{ fontFamily: 'var(--font-heading)' }}>Planaur</span>
     </div>
   );
 }

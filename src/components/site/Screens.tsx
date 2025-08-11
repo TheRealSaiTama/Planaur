@@ -83,7 +83,7 @@ export default function Screens() {
                 </div>
                 <span className="inline-flex items-center rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">Report</span>
               </div>
-              <div className="mt-4 h-32 w-full rounded-md bg-muted relative overflow-hidden">
+             <div className="mt-4 h-32 w-full rounded-md bg-muted relative overflow-hidden" aria-hidden>
                 <div className="absolute inset-x-0 bottom-0 flex items-end gap-1 p-2">
                   {Array.from({ length: 18 }).map((_, i) => (
                     <div key={i} className="h-10 w-2 origin-bottom rounded-sm bg-accent/40 animate-bar-pulse" style={{ animationDelay: `${(i % 6) * 150}ms` }} />

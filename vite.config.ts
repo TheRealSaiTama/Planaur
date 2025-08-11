@@ -16,4 +16,24 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom", "react-router-dom"],
+          motion: ["motion", "motion/react", "framer-motion"],
+          ui: [
+            "@radix-ui/react-dialog",
+            "@radix-ui/react-popover",
+            "@radix-ui/react-select",
+            "@radix-ui/react-tooltip",
+          ],
+          three: ["three", "@react-three/fiber"],
+          charts: ["recharts"],
+          vendor: ["zod", "date-fns", "clsx", "tailwind-merge"],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1500,
+  },
 }));

@@ -65,7 +65,8 @@ export default {
 			},
             fontFamily: {
                 inter: ['Inter', 'ui-sans-serif', 'system-ui'],
-                heading: ['DM Sans', 'Inter', 'ui-sans-serif', 'system-ui']
+                heading: ['DM Sans', 'Inter', 'ui-sans-serif', 'system-ui'],
+                league: ['"League Spartan"', 'Inter', 'ui-sans-serif', 'system-ui']
             },
 			borderRadius: {
 				lg: 'var(--radius)',

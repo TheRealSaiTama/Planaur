@@ -1,9 +1,12 @@
 "use client";
 
 import { useMotionValue, motion, useMotionTemplate } from "motion/react";
-import React, { MouseEvent as ReactMouseEvent, useState } from "react";
-import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
+import React, { MouseEvent as ReactMouseEvent, useEffect, useState, Suspense } from "react";
 import { cn } from "@/lib/utils";
+
+const LazyCanvasRevealEffect = React.lazy(() =>
+  import("@/components/ui/canvas-reveal-effect").then((m) => ({ default: m.CanvasRevealEffect }))
+);
 
 export const CardSpotlight = ({
   children,
@@ -25,6 +28,8 @@ export const CardSpotlight = ({
   }
 
   const [isHovering, setIsHovering] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
   return (
@@ -34,8 +39,8 @@ export const CardSpotlight = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...props}
-    >
-      <motion.div
+      >
+        <motion.div
         className="pointer-events-none absolute z-0 -inset-px rounded-md opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
         style={{
           backgroundColor: color,
@@ -48,14 +53,16 @@ export const CardSpotlight = ({
           `,
         }}
       >
-        {isHovering && (
-          <CanvasRevealEffect
-            animationSpeed={5}
-            containerClassName="bg-transparent absolute inset-0 pointer-events-none"
-            colors={[[59, 130, 246], [139, 92, 246]]}
-            dotSize={3}
-          />
-        )}
+          {isClient && isHovering && (
+            <Suspense fallback={<div className="absolute inset-0" />}> 
+              <LazyCanvasRevealEffect
+                animationSpeed={5}
+                containerClassName="bg-transparent absolute inset-0 pointer-events-none"
+                colors={[[59, 130, 246], [139, 92, 246]]}
+                dotSize={3}
+              />
+            </Suspense>
+          )}
       </motion.div>
       {children}
     </div>

@@ -1,4 +1,5 @@
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import React, { Suspense } from "react";
+const AnimatedTestimonials = React.lazy(() => import("@/components/ui/animated-testimonials").then(m => ({ default: m.AnimatedTestimonials })));
 
 export default function AnimatedTestimonialsDemo() {
   const testimonials = [
@@ -38,7 +39,11 @@ export default function AnimatedTestimonialsDemo() {
       src: "/placeholder.svg",
     },
   ];
-  return <AnimatedTestimonials testimonials={testimonials} />;
+  return (
+    <Suspense fallback={<div className="h-80" />}>
+      <AnimatedTestimonials testimonials={testimonials} />
+    </Suspense>
+  );
 }
 
 

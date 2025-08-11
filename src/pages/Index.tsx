@@ -1,15 +1,15 @@
 import Navbar from "@/components/site/Navbar";
-import Hero from "@/components/site/Hero";
-import Highlights from "@/components/site/Highlights";
-import Screens from "@/components/site/Screens";
-import InteractiveFeatures from "@/components/site/InteractiveFeatures";
-import TemplatesStack from "@/components/site/TemplatesStack";
-import Features from "@/components/site/Features";
-import Newsletter from "@/components/site/Newsletter";
+import React, { Suspense, useState } from "react";
+const Hero = React.lazy(() => import("@/components/site/Hero"));
+const TemplatesStack = React.lazy(() => import("@/components/site/TemplatesStack"));
+const HowItWorks = React.lazy(() => import("@/components/site/HowItWorks"));
+const NewlyAdded = React.lazy(() => import("@/components/site/NewlyAdded"));
+const Testimonials = React.lazy(() => import("@/components/site/Testimonials"));
+const Newsletter = React.lazy(() => import("@/components/site/Newsletter"));
+const HelpLinks = React.lazy(() => import("@/components/site/HelpLinks"));
 import Footer from "@/components/site/Footer";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
 
 const Index = () => {
@@ -21,14 +21,15 @@ const Index = () => {
         <>
           <Navbar />
           <main className="snap-y snap-mandatory">
-            <Hero />
-            <Highlights />
-            <Screens />
-            <InteractiveFeatures />
-            <TemplatesStack />
-            <AnimatedTestimonialsDemo />
-            <Features />
-            <Newsletter />
+            <Suspense fallback={<div className="min-h-[50vh]" />}> 
+              <Hero />
+              <TemplatesStack />
+              <HowItWorks />
+              <NewlyAdded />
+              <Testimonials />
+              <Newsletter />
+              <HelpLinks />
+            </Suspense>
           </main>
           <Footer />
         </>

@@ -40,11 +40,13 @@ export default function TemplatesStack() {
     if (!target) return;
     const io = new IntersectionObserver(
       ([entry]) => setShowCta(entry.isIntersecting),
-      { root: null, threshold: 0.2 }
+      { root: null, threshold: 0.01, rootMargin: "0px 0px -30% 0px" }
     );
     io.observe(target);
     return () => io.disconnect();
   }, []);
+
+  // No measurements required; sentinel below stack triggers CTA as user scrolls past
 
   return (
     <section id="templates" className="py-24 md:py-28 bg-[#D9D9D9]">
@@ -93,38 +95,35 @@ export default function TemplatesStack() {
           role="list"
           className="relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
         >
-          {filtered.map((t, i) => (
+          {filtered.map((t, i) => {
+            const isTopCard = i === 0;
+            return (
             <li
               key={t.title + i}
               className={cn(
-                "sticky top-[var(--top)] -mt-16 md:-mt-24 first:mt-0",
+                // Increased spacing between stacked windows (less overlap)
+                "sticky top-[var(--top)] -mt-3 md:-mt-5 first:mt-0",
                 "animate-fade-in"
               )}
               aria-label={`Template ${i + 1} of ${filtered.length}: ${t.title}`}
-              style={{
-                zIndex: filtered.length - i,
-                transform: `translateZ(${i * -6}px)`,
-                perspective: 1200,
-                // Progressive right margin to create stepped, left-pop effect
-                marginRight: i * 28,
-              }}
+              style={{ zIndex: filtered.length - i, transform: `translateZ(${i * -6}px)`, perspective: 1200 }}
             >
               <article
                 className={
-                  "group mx-auto max-w-5xl rounded-xl border border-border bg-white text-card-foreground overflow-hidden"
+                  "group relative mx-auto max-w-5xl rounded-[22px] border border-border bg-white text-card-foreground overflow-hidden"
                 }
                 style={{
                   boxShadow:
                     i === filtered.length - 1
                       ? "0 10px 30px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.6) inset"
                       : "0 18px 40px rgba(0,0,0,0.25)",
-                  // Subtle 3D stack with slight left pop and tiny tilt
-                  transform: `translateY(${i * 4}px) translateX(${-i * 6}px) scale(${1 - i * 0.01}) rotateY(${-i * 0.4}deg)`,
+                  // Stronger pop and tilt towards left for each subsequent card
+                  transform: `translateY(${i * 4}px) translateX(${-i * 28}px) scale(${1 - i * 0.012}) rotateY(${-i * 1.2}deg)`,
                   transformStyle: "preserve-3d",
                   willChange: "transform",
                 }}
               >
-                <div className="flex items-center gap-2 px-4 py-3 bg-[#EDEDED] border-b border-border">
+                <div className="flex items-center gap-2 px-10 py-6 bg-[#EDEDED] border-b border-border">
                   <span className="size-2.5 rounded-full bg-neutral-400/60" />
                   <span className="size-2.5 rounded-full bg-neutral-400/60" />
                   <span className="size-2.5 rounded-full bg-neutral-400/60" />
@@ -141,7 +140,7 @@ export default function TemplatesStack() {
                   />
                 </div>
 
-                 <div className="p-5 md:p-6">
+                 <div className="p-8 md:p-10">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <h3 className="font-medium leading-tight">{t.title}</h3>
@@ -159,46 +158,33 @@ export default function TemplatesStack() {
                     </Button>
                   </div>
                 </div>
+
+                {isTopCard && (
+                  <div className={cn(
+                    "pointer-events-none absolute inset-0 z-50 flex items-end justify-center opacity-0 transition-opacity duration-150",
+                    showCta && "opacity-100"
+                  )}>
+                    <div className="absolute inset-0 rounded-[22px] bg-black/10 backdrop-blur-md" />
+                    <a
+                      href="/templates"
+                      className="group pointer-events-auto mb-6 relative inline-flex items-stretch overflow-hidden rounded-full bg-black/85 text-white shadow-md hover:bg-black focus-visible:ring-2 focus-visible:ring-offset-2"
+                      aria-label="See more templates"
+                    >
+                      <span className="px-6 py-3 text-base leading-none transition-transform duration-150 group-hover:translate-x-0.5">See More Templates</span>
+                      <span className="relative flex w-10 items-center justify-center bg-black/85 text-white transition-all duration-150 group-hover:bg-white group-hover:text-black group-hover:w-12 before:absolute before:left-0 before:top-1/2 before:h-5 before:w-px before:-translate-y-1/2 before:bg-white/30 before:opacity-0 group-hover:before:opacity-100" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-100 transition-all duration-150 group-hover:opacity-0 group-hover:translate-x-1"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-0 -translate-x-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" /></svg>
+                      </span>
+                    </a>
+                  </div>
+                )}
               </article>
             </li>
-          ))}
+          )})}
         </ol>
 
-        {/* CTA overlay that slides up when the section ends */}
-        <div
-          className={cn(
-            "pointer-events-none sticky top-0 z-50 mx-auto flex h-[72vh] w-full max-w-none items-center justify-center transition-transform duration-700",
-            showCta ? "translate-y-0" : "translate-y-full"
-          )}
-          aria-hidden
-        >
-          <div className="pointer-events-auto relative isolate mx-6 w-full max-w-3xl overflow-hidden rounded-[28px] border border-white/20 bg-black/20 p-2 shadow-2xl backdrop-blur-2xl">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
-            <a
-              href="/templates"
-              className="group mx-auto my-16 flex w-fit items-stretch overflow-hidden rounded-full bg-black/85 text-white shadow-md hover:bg-black focus-visible:ring-2 focus-visible:ring-offset-2 transition-colors"
-              aria-label="See more templates"
-            >
-              <span className="px-6 py-3 text-base leading-none transition-transform duration-200 group-hover:translate-x-0.5">
-                See More Templates
-              </span>
-              <span
-                className="relative flex w-10 items-center justify-center bg-black/85 text-white transition-all duration-200 group-hover:bg-white group-hover:text-black group-hover:w-12 before:absolute before:left-0 before:top-1/2 before:h-5 before:w-px before:-translate-y-1/2 before:bg-white/30 before:opacity-0 group-hover:before:opacity-100"
-                aria-hidden="true"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-100 transition-all duration-200 group-hover:opacity-0 group-hover:translate-x-1">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        {/* Sentinel to trigger the CTA when it enters the viewport */}
-        <div ref={sentinelRef} className="h-40 md:h-60" aria-hidden />
+        {/* After-stack sentinel: positioned slightly above end to trigger sooner */}
+        <div ref={sentinelRef} className="-mt-24 md:-mt-28 h-px" aria-hidden />
       </div>
     </section>
   );

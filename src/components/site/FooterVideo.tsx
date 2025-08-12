@@ -3,14 +3,12 @@ export default function FooterVideo() {
     <section className="py-16 md:py-20">
       <div className="container">
         <div className="mx-auto flex items-center justify-center">
-          <video
-            src="/planaur.mp4"
-            className="block w-full max-w-4xl h-auto max-h-16 md:max-h-20 object-contain object-top"
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls={false}
+          <img
+            src="/planaur.svg"
+            alt="Planaur wordmark strip"
+            className="block w-full max-w-4xl h-12 md:h-16 object-contain"
+            loading="eager"
+            decoding="sync"
           />
         </div>
       </div>

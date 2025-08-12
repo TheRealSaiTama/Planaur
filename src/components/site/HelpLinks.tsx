@@ -83,9 +83,9 @@ export default function HelpLinks() {
               </ul>
             </div>
 
-            <div className="rounded-2xl border border-border bg-[#EAEAEA] p-6 flex flex-col">
+            <div className="rounded-2xl border border-border bg-[#EAEAEA] p-6 flex flex-col items-center text-center">
               <div className="text-lg font-medium">Socials</div>
-              <div className="mt-6 grid gap-4">
+              <div className="mt-6 grid gap-4 place-items-center">
                 <SocialSquare href="#" label="Notion">
                   <img src={notionIcon} alt="Notion" className="h-6 w-auto" />
                 </SocialSquare>

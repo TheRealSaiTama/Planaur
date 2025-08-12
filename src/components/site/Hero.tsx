@@ -25,8 +25,11 @@ export default function Hero() {
                 <span className="block whitespace-nowrap fade-in">Notion <NotionBadge /> Templates</span>
                 <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4 fade-in" style={{ animationDelay: "80ms" }}>that Organize Your</span>
                 <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4">
-                  <span className="text-[#7C7C7C] tracking-in-expand">chaos</span>
-                  <span className="inline-block fade-in" style={{ animationDelay: "160ms" }}> into</span>
+                  <span className="relative inline-block align-baseline">
+                    <span aria-hidden className="invisible">chaos</span>
+                    <span className="absolute inset-0 text-[#7C7C7C] tracking-in-expand">chaos</span>
+                  </span>
+                  <span className="inline-block align-baseline fade-in" style={{ animationDelay: "160ms" }}>&nbsp;into</span>
                 </span>
                 <span className="block whitespace-nowrap mt-2 md:mt-4 fade-in" style={{ animationDelay: "240ms" }}>Actionable</span>
                 <span className="block whitespace-nowrap mt-2 md:mt-4 fade-in" style={{ animationDelay: "320ms" }}>Productivity</span>

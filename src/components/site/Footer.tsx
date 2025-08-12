@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="mx-auto h-full w-full max-w-7xl opacity-40" style={{ backgroundImage: "radial-gradient(hsl(var(--ring)/0.08) 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
       </div>
       <div className="container relative py-14">
-        <div className="grid gap-8 md:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
               <Logo height={24} />
@@ -29,9 +29,9 @@ export default function Footer() {
               <li><a href="#contact" className="hover:underline">Contact</a></li>
             </ul>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h4 className="font-medium">Social</h4>
-            <div className="mt-3 flex items-center gap-3">
+            <div className="mt-3 flex items-center justify-center gap-3">
               <a href="#" aria-label="LinkedIn" className="p-2 rounded-md border hover:bg-muted"><Linkedin className="h-4 w-4" /></a>
               <a href="#" aria-label="Pinterest" className="p-2 rounded-md border hover:bg-muted"><LinkIcon className="h-4 w-4" /></a>
               <a href="#" aria-label="Twitter" className="p-2 rounded-md border hover:bg-muted"><Twitter className="h-4 w-4" /></a>

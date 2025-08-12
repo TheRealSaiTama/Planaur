@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 border-b border-border bg-[#E4E2DD] overflow-hidden transition-shadow ${scrolled ? "shadow-sm" : "shadow-none"}`}>
+    <header className={`sticky top-0 z-50 border-b border-border overflow-hidden transition-all ${scrolled ? "bg-[#E4E2DD]/70 backdrop-blur-md shadow-sm" : "bg-[#E4E2DD] shadow-none"}`}>
       <nav className="mx-auto w-full max-w-[1442px] h-[50px] px-6 flex items-center justify-between relative">
         {/* Left decorative cropped image (brand link is visually hidden) */}
         <div className="relative flex items-center w-[620px]">

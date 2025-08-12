@@ -22,11 +22,14 @@ export default function Hero() {
             {/* Left copy */}
             <div className="px-6 py-10 md:px-10 md:py-14 lg:px-14 lg:py-16">
               <h1 className="font-league font-black text-[36px] leading-[1.02] md:text-[64px] md:leading-[1.04] lg:text-[90px] lg:leading-[1.04] text-black tracking-tight">
-                <span className="block whitespace-nowrap">Notion <NotionBadge /> Templates</span>
-                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4">that Organize Your</span>
-                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4"><span className="text-[#7C7C7C] tracking-in-expand">chaos</span> into</span>
-                <span className="block whitespace-nowrap mt-2 md:mt-4">Actionable</span>
-                <span className="block whitespace-nowrap mt-2 md:mt-4">Productivity</span>
+                <span className="block whitespace-nowrap fade-in">Notion <NotionBadge /> Templates</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4 fade-in" style={{ animationDelay: "80ms" }}>that Organize Your</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-3 lg:mt-4">
+                  <span className="text-[#7C7C7C] tracking-in-expand">chaos</span>
+                  <span className="inline-block fade-in" style={{ animationDelay: "160ms" }}> into</span>
+                </span>
+                <span className="block whitespace-nowrap mt-2 md:mt-4 fade-in" style={{ animationDelay: "240ms" }}>Actionable</span>
+                <span className="block whitespace-nowrap mt-2 md:mt-4 fade-in" style={{ animationDelay: "320ms" }}>Productivity</span>
               </h1>
             </div>
             {/* Right: Mini Mac screen mock with collage inside */}

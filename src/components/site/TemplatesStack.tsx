@@ -3,7 +3,7 @@ import type { Template } from "@/data/types";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const categories = ["All", "Personal", "Business", "IT", "Student"] as const;
 
@@ -14,22 +14,41 @@ export default function TemplatesStack() {
   const templates = useMemo(() => templatesData.filter(t => t.isPublished) as Template[], []);
 
   const filtered = useMemo(() => {
-    const list = active === "All" ? templates : templates.filter((t) => t.category === active);
+    let list = active === "All" ? templates : templates.filter((t) => t.category === active);
     switch (sort) {
       case "Newest":
         return list;
       case "Price ↑":
-        return [...list].sort((a, b) => (a.salePriceUSD ?? a.priceUSD) - (b.salePriceUSD ?? b.priceUSD));
+        return [...list].sort(
+          (a, b) => (a.salePriceUSD ?? a.priceUSD) - (b.salePriceUSD ?? b.priceUSD)
+        );
       case "Price ↓":
-        return [...list].sort((a, b) => (b.salePriceUSD ?? b.priceUSD) - (a.salePriceUSD ?? a.priceUSD));
+        return [...list].sort(
+          (a, b) => (b.salePriceUSD ?? b.priceUSD) - (a.salePriceUSD ?? a.priceUSD)
+        );
       default:
         return list;
     }
   }, [active, sort, templates]);
 
+  // CTA overlay visibility when reaching the end of the stack
+  const [showCta, setShowCta] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const target = sentinelRef.current;
+    if (!target) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setShowCta(entry.isIntersecting),
+      { root: null, threshold: 0.2 }
+    );
+    io.observe(target);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section id="templates" className="py-24 md:py-28 bg-[#D9D9D9]">
-      <div className="container">
+      <div className="container relative">
         <header className="flex flex-col items-center text-center mb-8">
           <h2 className="font-heading text-3xl md:text-5xl tracking-tight">Explore Beautiful Templates</h2>
           <p className="mt-3 text-muted-foreground max-w-2xl">Scroll to reveal each template, stacked elegantly like browser screens.</p>
@@ -72,17 +91,23 @@ export default function TemplatesStack() {
         {/* Stacked, scroll-driven cards with subtle 3D depth */}
         <ol
           role="list"
-          className="stack-list relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
+          className="relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
         >
           {filtered.map((t, i) => (
             <li
               key={t.title + i}
               className={cn(
-                "stack-card sticky top-[var(--top)] -mt-16 md:-mt-24 first:mt-0",
+                "sticky top-[var(--top)] -mt-16 md:-mt-24 first:mt-0",
                 "animate-fade-in"
               )}
               aria-label={`Template ${i + 1} of ${filtered.length}: ${t.title}`}
-              style={{ zIndex: filtered.length - i, transform: `translateZ(${i * -6}px)`, perspective: 1200 }}
+              style={{
+                zIndex: filtered.length - i,
+                transform: `translateZ(${i * -6}px)`,
+                perspective: 1200,
+                // Progressive right margin to create stepped, left-pop effect
+                marginRight: i * 28,
+              }}
             >
               <article
                 className={
@@ -93,7 +118,8 @@ export default function TemplatesStack() {
                     i === filtered.length - 1
                       ? "0 10px 30px rgba(0,0,0,0.2), 0 1px 0 rgba(255,255,255,0.6) inset"
                       : "0 18px 40px rgba(0,0,0,0.25)",
-                  transform: `translateY(${i * 4}px) scale(${1 - i * 0.01}) rotateX(${i * 0.15}deg)`,
+                  // Subtle 3D stack with slight left pop and tiny tilt
+                  transform: `translateY(${i * 4}px) translateX(${-i * 6}px) scale(${1 - i * 0.01}) rotateY(${-i * 0.4}deg)`,
                   transformStyle: "preserve-3d",
                   willChange: "transform",
                 }}
@@ -138,9 +164,43 @@ export default function TemplatesStack() {
           ))}
         </ol>
 
-        {/* Spacer so the last sticky card can scroll past */}
-        <div className="h-24 md:h-40" aria-hidden="true" />
+        {/* CTA overlay that slides up when the section ends */}
+        <div
+          className={cn(
+            "pointer-events-none sticky top-0 z-50 mx-auto flex h-[72vh] w-full max-w-none items-center justify-center transition-transform duration-700",
+            showCta ? "translate-y-0" : "translate-y-full"
+          )}
+          aria-hidden
+        >
+          <div className="pointer-events-auto relative isolate mx-6 w-full max-w-3xl overflow-hidden rounded-[28px] border border-white/20 bg-black/20 p-2 shadow-2xl backdrop-blur-2xl">
+            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-transparent" />
+            <a
+              href="/templates"
+              className="group mx-auto my-16 flex w-fit items-stretch overflow-hidden rounded-full bg-black/85 text-white shadow-md hover:bg-black focus-visible:ring-2 focus-visible:ring-offset-2 transition-colors"
+              aria-label="See more templates"
+            >
+              <span className="px-6 py-3 text-base leading-none transition-transform duration-200 group-hover:translate-x-0.5">
+                See More Templates
+              </span>
+              <span
+                className="relative flex w-10 items-center justify-center bg-black/85 text-white transition-all duration-200 group-hover:bg-white group-hover:text-black group-hover:w-12 before:absolute before:left-0 before:top-1/2 before:h-5 before:w-px before:-translate-y-1/2 before:bg-white/30 before:opacity-0 group-hover:before:opacity-100"
+                aria-hidden="true"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-100 transition-all duration-200 group-hover:opacity-0 group-hover:translate-x-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute inset-0 m-auto h-5 w-5 opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        {/* Sentinel to trigger the CTA when it enters the viewport */}
+        <div ref={sentinelRef} className="h-40 md:h-60" aria-hidden />
       </div>
     </section>
   );
 }
+

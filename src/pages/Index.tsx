@@ -7,7 +7,7 @@ const NewlyAdded = React.lazy(() => import("@/components/site/NewlyAdded"));
 const Testimonials = React.lazy(() => import("@/components/site/Testimonials"));
 const Newsletter = React.lazy(() => import("@/components/site/Newsletter"));
 const HelpLinks = React.lazy(() => import("@/components/site/HelpLinks"));
-import Footer from "@/components/site/Footer";
+import FooterVideo from "@/components/site/FooterVideo";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 import { Button } from "@/components/ui/button";
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
@@ -31,7 +31,7 @@ const Index = () => {
               <HelpLinks />
             </Suspense>
           </main>
-          <Footer />
+          <FooterVideo />
         </>
       ) : (
         <main>

@@ -167,7 +167,7 @@ export default function TemplatesStack() {
                     <div className="absolute inset-0 rounded-[22px] bg-black/10 backdrop-blur-md" />
                     <a
                       href="/templates"
-                      className="group pointer-events-auto mb-6 relative inline-flex items-stretch overflow-hidden rounded-full bg-black/85 text-white shadow-md hover:bg-black focus-visible:ring-2 focus-visible:ring-offset-2"
+                      className="group pointer-events-auto mb-60 relative inline-flex items-stretch overflow-hidden rounded-full bg-black/85 text-white shadow-md hover:bg-black focus-visible:ring-2 focus-visible:ring-offset-2"
                       aria-label="See more templates"
                     >
                       <span className="px-6 py-3 text-base leading-none transition-transform duration-150 group-hover:translate-x-0.5">See More Templates</span>

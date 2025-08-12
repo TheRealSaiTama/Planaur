@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function FooterVideo() {
   const ref = useRef<HTMLVideoElement | null>(null);
-  const videoSrc = `${import.meta.env.BASE_URL}planaur3.mp4`;
+  const videoSrc = `${import.meta.env.BASE_URL}realdeal.mp4`;
 
   useEffect(() => {
     const v = ref.current;
@@ -29,13 +29,13 @@ export default function FooterVideo() {
   return (
     <section className="pt-0 pb-0 -mt-12 md:-mt-20">
       <div className="container">
-        <div className="mx-auto relative w-full max-w-7xl h-[240px] md:h-[355px] overflow-hidden">
+        <div className="mx-auto relative w-full max-w-7xl">
           <video
             ref={ref}
             src={videoSrc}
             preload="auto"
-            className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
-            style={{ clipPath: 'inset(0 0 12% 0)', transform: 'translateZ(0)' }}
+            className="block w-full h-auto object-contain pointer-events-none mix-blend-multiply"
+            style={{ transform: 'translateZ(0)' }}
             autoPlay
             muted
             loop

@@ -14,14 +14,14 @@ export default function TemplatesStack() {
   const templates = useMemo(() => templatesData.filter(t => t.isPublished) as Template[], []);
 
   const filtered = useMemo(() => {
-    let list = active === "All" ? templates : templates.filter((t) => t.category === active);
+    const list = active === "All" ? templates : templates.filter((t) => t.category === active);
     switch (sort) {
       case "Newest":
         return list;
       case "Price ↑":
-        return [...list].sort((a, b) => toPrice(a.price) - toPrice(b.price));
+        return [...list].sort((a, b) => (a.salePriceUSD ?? a.priceUSD) - (b.salePriceUSD ?? b.priceUSD));
       case "Price ↓":
-        return [...list].sort((a, b) => toPrice(b.price) - toPrice(a.price));
+        return [...list].sort((a, b) => (b.salePriceUSD ?? b.priceUSD) - (a.salePriceUSD ?? a.priceUSD));
       default:
         return list;
     }
@@ -72,13 +72,13 @@ export default function TemplatesStack() {
         {/* Stacked, scroll-driven cards with subtle 3D depth */}
         <ol
           role="list"
-          className="relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
+          className="stack-list relative mx-auto max-w-6xl [--stack-gap:theme(spacing.24)] [--top:theme(spacing.24)] md:[--top:theme(spacing.28)]"
         >
           {filtered.map((t, i) => (
             <li
               key={t.title + i}
               className={cn(
-                "sticky top-[var(--top)] -mt-16 md:-mt-24 first:mt-0",
+                "stack-card sticky top-[var(--top)] -mt-16 md:-mt-24 first:mt-0",
                 "animate-fade-in"
               )}
               aria-label={`Template ${i + 1} of ${filtered.length}: ${t.title}`}
@@ -108,7 +108,7 @@ export default function TemplatesStack() {
 
                 <div className="overflow-hidden">
                   <img
-                    src={t.img}
+                    src={t.coverImg}
                     alt={`${t.title} template preview`}
                     className="w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                     loading="lazy"
@@ -143,8 +143,4 @@ export default function TemplatesStack() {
       </div>
     </section>
   );
-}
-
-function toPrice(p: string) {
-  return Number(p.replace(/[^0-9.]/g, "")) || 0;
 }

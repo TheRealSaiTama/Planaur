@@ -35,13 +35,7 @@ export default function FooterVideo() {
             src={videoSrc}
             preload="auto"
             className="block w-full h-auto object-contain pointer-events-none"
-            style={{
-              transform: 'translateZ(0)',
-              WebkitMaskImage:
-                'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 100%)',
-              maskImage:
-                'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 4%, rgba(0,0,0,1) 96%, rgba(0,0,0,0) 100%)',
-            }}
+            style={{ transform: 'translateZ(0)' }}
             autoPlay
             muted
             loop

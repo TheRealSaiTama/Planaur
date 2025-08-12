@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function FooterVideo() {
   const ref = useRef<HTMLVideoElement | null>(null);
+  const videoSrc = `${import.meta.env.BASE_URL}planaur3.mp4`;
 
   useEffect(() => {
     const v = ref.current;
@@ -31,7 +32,7 @@ export default function FooterVideo() {
         <div className="mx-auto relative w-full max-w-7xl h-[240px] md:h-[355px] overflow-hidden">
           <video
             ref={ref}
-            src="/planaur3.mp4#t=0.001"
+            src={videoSrc}
             preload="auto"
             className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none"
             style={{ clipPath: 'inset(0 0 12% 0)', transform: 'translateZ(0)' }}
@@ -41,8 +42,16 @@ export default function FooterVideo() {
             playsInline
             controls={false}
             onCanPlay={() => { try { ref.current?.play(); } catch {} }}
+            onError={(e) => {
+              const v = e.currentTarget as HTMLVideoElement;
+              // try a cache-busting reload
+              const url = new URL(videoSrc, window.location.origin);
+              url.searchParams.set('v', Date.now().toString());
+              v.src = url.toString();
+              try { v.play(); } catch {}
+            }}
           >
-            <source src="/planaur3.mp4#t=0.001" type="video/mp4" />
+            <source src={videoSrc} type="video/mp4" />
           </video>
         </div>
       </div>

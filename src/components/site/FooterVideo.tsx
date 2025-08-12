@@ -1,11 +1,11 @@
 export default function FooterVideo() {
   return (
-    <section className="pt-0 pb-8 md:pb-10 -mt-10 md:-mt-12">
+    <section className="pt-0 pb-0 -mt-6 md:-mt-8">
       <div className="container">
         <div className="mx-auto flex items-center justify-center">
           <video
             src="/planaur3.mp4"
-            className="block w-full max-w-5xl h-10 md:h-14 object-contain"
+            className="block w-full max-w-7xl h-28 md:h-36 object-contain"
             autoPlay
             muted
             loop
